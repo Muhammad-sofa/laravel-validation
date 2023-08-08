@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class validatorTest extends TestCase
@@ -46,5 +47,11 @@ class validatorTest extends TestCase
 
         self::assertFalse($validator->passes()); //sukses
         self::assertTrue($validator->fails()); //gagal
+
+        //error message
+        $message = $validator->getMessageBag();
+
+        Log::info($message->toJson(JSON_PRETTY_PRINT));
     }
+    
 }
