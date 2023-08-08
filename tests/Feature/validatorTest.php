@@ -14,7 +14,7 @@ class validatorTest extends TestCase
     {
         $data = [
             "username" => "admin",
-            "password" => "123456"
+            "password" => "123445"
         ];
 
         $rules = [
@@ -24,5 +24,27 @@ class validatorTest extends TestCase
 
         $validator = Validator::make($data, $rules);
         self::assertNotNull($validator);
+
+        self::assertTrue($validator->passes()); //sukses
+        self::assertFalse($validator->fails()); //gagal
+    }
+
+    public function testValidatorInvalid()
+    {
+        $data = [
+            "username" => "",
+            "password" => ""
+        ];
+
+        $rules = [
+            "username" => "required",
+            "password" => "required"
+        ];
+
+        $validator = Validator::make($data, $rules);
+        self::assertNotNull($validator);
+
+        self::assertFalse($validator->passes()); //sukses
+        self::assertTrue($validator->fails()); //gagal
     }
 }
